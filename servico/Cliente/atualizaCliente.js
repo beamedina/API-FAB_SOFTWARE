@@ -1,4 +1,4 @@
-import pool from "./conexao.js";
+import pool from "../conexao.js";
 
 export async function atualizaCliente(id, nome, endereco, telefone, cpf) {
     const conexao = await pool.getConnection();

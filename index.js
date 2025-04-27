@@ -1,9 +1,11 @@
 import express from 'express';
-import { cadastraCliente } from './servico/CadastrarCliente.js'; // <-- Importação nomeada
-import { selectCliente } from './servico/SelecionarCliente.js';
-import { DeletaCliente } from './servico/deletarCliente.js';
-import { atualizaEspecifico } from './servico/atualizaCliente';
-import { atualizaCliente } from './servico/atualizaCliente';
+import { cadastraCliente } from './servico/Cliente/CadastrarCliente.js'; // <-- Importação nomeada
+import { selectCliente } from './servico/Cliente/SelecionarCliente.js';
+import { DeletaCliente } from './servico/Cliente/deletarCliente.js';
+import { atualizaEspecifico } from './servico/Cliente/atualizaCliente.js';
+import { atualizaCliente } from './servico/Cliente/atualizaCliente.js';
+import { cadastraFuncionario } from './servico/CadastrarFunc.js';
+import { DeletaFunci } from './servico/deletarFunci.js';
 
 const app = express();
 
@@ -15,6 +17,14 @@ app.post('/clientes', async (req, res) => {
     await cadastraCliente(nome, endereco, telefone, cpf); // Chama a função importada
     res.status(204).end();
 });
+
+app.post('/funcionarios', async (req, res) => {
+    const { cpf, telefone, nome, endereco, cargo, rg, cnh, email } = req.body;
+
+    await cadastraFuncionario( cpf, telefone, nome, endereco, cargo, rg, cnh, email); 
+    res.status(204).end();
+});
+
 
 app.get('/clientes/:nome', async (req, res) => {
     const nome = req.params.nome;
@@ -43,6 +53,26 @@ app.delete('/clientes/:id', async (req, res) => {
         }
     }
 })
+
+
+
+app.delete('/funcionarios/:id', async (req, res) => {
+    const {id} = req.params;
+
+    if (isNaN(id)) {
+        res.status(404).send('Parâmetro inválido!');
+    } 
+    else {
+        const resultado = await DeletaFunci(id);
+
+        if (resultado.affectedRows > 0) {
+            res.status(202).send('Registro deletado com sucesso!');
+        } else {
+            res.status(404).send('Registro não encontrado!');
+        }
+    }
+})
+
 
 app.put('/clientes/:id', async (req, res) => {
     const { id } = req.params; 
