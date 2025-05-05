@@ -1,9 +1,9 @@
-import pool from "./conexao.js"
+import pool from "../conexao.js"
 
-export async function DeletaFunci(id) {
+export async function deletarPlano(id) {
     const conexao = await pool.getConnection();
 
-    const query = 'DELETE from funcionario WHERE idFUNCIONARIO = ?';
+    const query = 'DELETE from plano WHERE idPlano = ?';
     const [resposta] = await conexao.execute(query, [id]);
     console.log(resposta);
     conexao.release();
