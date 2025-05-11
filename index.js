@@ -27,9 +27,9 @@ const app = express();
 app.use(express.json()); // Suporte para json no corpo (body) da requisição
 
 app.post('/clientes', async (req, res) => {
-    const { nome, endereco, telefone, cpf } = req.body;
+    const { nome, endereco, telefone, cpf, plano } = req.body;
 
-    await cadastraCliente(nome, endereco, telefone, cpf); // Chama a função importada
+    await cadastraCliente(nome, endereco, telefone, cpf, plano); // Chama a função importada
     res.status(204).end();
 });
 
@@ -207,12 +207,12 @@ app.delete('/planos/:id', async (req, res) => {
 
 app.put('/clientes/:id', async (req, res) => {
     const { id } = req.params; 
-    const { nome, endereco, telefone, cpf } = req.body;
+    const { nome, endereco, telefone, cpf, plano } = req.body;
 
-    if (nome == undefined || endereco == undefined || telefone == undefined) {
+    if (nome == undefined || endereco == undefined || telefone == undefined, plano == undefined) {
         res.status(400).send('Todos os campos devem ser informados!')
     } else {
-        const resultado = await atualizaCliente(id, nome, endereco, telefone, cpf);
+        const resultado = await atualizaCliente(id, nome, endereco, telefone, cpf, plano);
         if (resultado.affectedRows > 0) {
             res.status(202).send('Registro atualizado com sucesso!')
         } else {

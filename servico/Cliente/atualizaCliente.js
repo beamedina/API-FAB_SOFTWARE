@@ -2,8 +2,8 @@ import pool from "../conexao.js";
 
 export async function atualizaCliente(id, nome, endereco, telefone, cpf) {
     const conexao = await pool.getConnection();
-    const query = 'UPDATE cliente SET nome = ?, endereco = ?, telefone = ?, cpf = ? WHERE idCliente = ?';
-    const [resposta] = await conexao.execute(query, [nome, endereco, telefone, cpf, id]);
+    const query = 'UPDATE cliente SET nome = ?, endereco = ?, telefone = ?, cpf = ?, plano = ? WHERE idCliente = ?';
+    const [resposta] = await conexao.execute(query, [nome, endereco, telefone, cpf, plano, id]);
     console.log(resposta);
     conexao.release();
     return resposta;

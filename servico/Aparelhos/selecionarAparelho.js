@@ -1,8 +1,8 @@
 import pool from "../conexao.js"
 export async function selecionarAparelho(nome) {
     const conexao = await pool.getConnection();
-    const query = 'SELECT * FROM aparelho WHERE nome = ?';
-    const [aparelhos] = await conexao.query(query, [nome]);
+    const query = 'SELECT * FROM aparelho WHERE nome like ?';
+    const [aparelhos] = await conexao.query(query, [`%${nome}%`]);
     conexao.release();
     return aparelhos;
 }
