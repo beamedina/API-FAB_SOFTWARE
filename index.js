@@ -95,7 +95,7 @@ app.get('/aparelhos/:nome', async (req, res) => {
     if (aparelhos.length > 0) {
         res.json(aparelhos);
     } else {
-        res.status(404).json({ mensagem: "Nenhum funcionario encontrado" });
+        res.status(404).json({ mensagem: "Nenhum aparelho encontrado" });
     }
 });
 
@@ -106,7 +106,7 @@ app.get('/aparelhos', async (req, res) => {
         res.json(funcionarios);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ mensagem: "Erro ao buscar funcionários" });
+        res.status(500).json({ mensagem: "Erro ao buscar aparelhos" });
     }
 });
 
