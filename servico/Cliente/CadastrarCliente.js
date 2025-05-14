@@ -4,7 +4,7 @@ export  async function cadastraCliente(nome, endereco, telefone, cpf,plano) {
     const conexao = await pool.getConnection();
     
     const resposta = await conexao.query(
-        'INSERT INTO cliente (nome, endereco, telefone, cpf, plano) VALUES (?, ?, ?, ?, ?)',
+        'INSERT INTO CLIENTE (nome, endereco, telefone, cpf, plano) VALUES (?, ?, ?, ?, ?)',
         [nome, endereco, telefone, cpf, plano]
     );
     

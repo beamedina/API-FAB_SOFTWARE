@@ -27,7 +27,6 @@ const app = express();
 app.use(express.json()); // Suporte para json no corpo (body) da requisição
 
 app.post('/clientes', async (req, res) => {
-
     try{
         const { nome, endereco, telefone, cpf, plano } = req.body;
     
