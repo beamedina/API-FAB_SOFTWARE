@@ -392,6 +392,10 @@ app.post('/login', async (req, res) => {
     }
   });
 
+app.get('/teste/', async (req, res) =>{
+
+    res.status(200).send("Ele conecta")
+})
 
 app.listen(9000, () => {
     const data = new Date();
