@@ -85,7 +85,7 @@ app.get('/funcionarios', async (req, res) => {
         res.json(funcionarios);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ mensagem: "Erro ao buscar funcionários" });
+        res.status(500).json({ mensagem: "Erro ao buscar funcionários", error : error });
     }
 });
 
