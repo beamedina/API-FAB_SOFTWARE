@@ -34,9 +34,10 @@ app.post('/clientes', async (req, res) => {
 });
 
 app.post('/funcionarios', async (req, res) => {
-    const { cpf, telefone, nome, endereco, cargo, rg, cnh, email } = req.body;
+    console.log(req.body);
+    const { cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha} = req.body;
 
-    await cadastraFuncionario( cpf, telefone, nome, endereco, cargo, rg, cnh, email); 
+    await cadastraFuncionario( cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha); 
     res.status(204).end();
 });
 

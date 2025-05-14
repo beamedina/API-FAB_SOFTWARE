@@ -10,9 +10,14 @@ export async function selectFunci(nome) {
 
 
 export async function selectTodosFuncionarios() {
-    const conexao = await pool.getConnection();
-    const query = 'SELECT * FROM funcionario';
-    const [funcionarios] = await conexao.query(query);
-    conexao.release();
-    return funcionarios;
+    try {
+        const conexao = await pool.getConnection();
+        const query = 'SELECT * FROM FUNCIONARIO';
+        const [funcionarios] = await conexao.query(query);
+        conexao.release();
+        return funcionarios;
+    } catch (error) {
+        console.error("Erro no selectTodosFuncionarios:", error);  // <== importante
+        throw error;
+    }
 }
