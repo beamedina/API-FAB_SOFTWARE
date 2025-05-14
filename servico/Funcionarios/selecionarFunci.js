@@ -12,7 +12,7 @@ export async function selectFunci(nome) {
 export async function selectTodosFuncionarios() {
     try {
         const conexao = await pool.getConnection();
-        const query = 'SELECT * FROM FUNCIONARIO';
+        const query = 'SELECT * FROM iffitness_db.FUNCIONARIO';
         const [funcionarios] = await conexao.query(query);
         conexao.release();
         return funcionarios;
