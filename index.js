@@ -248,12 +248,12 @@ app.put('/clientes/:id', async (req, res) => {
 app.put('/funcionarios/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { cpf, telefone, nome, endereco, cargo, rg, cnh, email } = req.body;
+        const { cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha } = req.body;
 
         if (
             cpf == undefined || telefone == undefined || nome == undefined ||
             endereco == undefined || cargo == undefined || rg == undefined ||
-            cnh == undefined || email == undefined
+            cnh == undefined || email == undefined || senha == undefined
         ) {
             return res.status(400).send('Todos os campos devem ser informados!');
         }
