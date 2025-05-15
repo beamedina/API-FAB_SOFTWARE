@@ -1,11 +1,17 @@
 import pool from "../conexao.js";
 export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email) {
+   
+   
+   try{
     const conexao = await pool.getConnection();
     const query = 'UPDATE funcionario SET cpf = ?, telefone = ?, nome = ?, endereco = ?, cargo = ?, rg = ?, cnh =?, email = ? WHERE idFuncionario = ?';
     const [resposta] = await conexao.execute(query, [ cpf, telefone, nome, endereco, cargo, rg, cnh, email, id]);
     console.log(resposta);
     conexao.release();
     return resposta;
+   } catch(error){
+        console.error("deu erro", error)
+   }
 }
 
 export async function atualizaEFunci(id, campos){
