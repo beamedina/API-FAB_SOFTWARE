@@ -1,16 +1,26 @@
 import pool from "../conexao.js";
-export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha) { 
-   try{
+
+export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha) {
     const conexao = await pool.getConnection();
-    const query = 'UPDATE funcionario SET cpf = ?, telefone = ?, nome = ?, endereco = ?, cargo = ?, rg = ?, cnh =?, email = ?, senha =? WHERE idFUNCIONARIO = ?';
-    const [resposta] = await conexao.execute(query, [ cpf, telefone, nome, endereco, cargo, rg, cnh, email,senha, id]);
-    console.log(resposta);
-    conexao.release();
-    return resposta;
-   } catch(error){
-        console.error("deu errado", error)
-   }
+
+    try {
+        const query = `
+            UPDATE funcionario 
+            SET cpf = ?, telefone = ?, nome = ?, endereco = ?, cargo = ?, rg = ?, cnh = ?, email = ?, senha = ?
+            WHERE idFUNCIONARIO = ?
+        `;
+        const [resposta] = await conexao.execute(query, [cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha, id]);
+
+        console.log("Resposta do UPDATE:", resposta);
+        return resposta;
+    } catch (error) {
+        console.error("Erro ao atualizar funcionário:", error.message);
+        throw error; // repassa o erro para quem chamou a função
+    } finally {
+        conexao.release();
+    }
 }
+
 
 export async function atualizaEFunci(id, campos){
     const conexao = await pool.getConnection();
