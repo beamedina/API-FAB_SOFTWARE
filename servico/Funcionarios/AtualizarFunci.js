@@ -5,7 +5,7 @@ export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg
 
     try {
         const query = `
-            UPDATE funcionario 
+            UPDATE FUNCIONARIO 
             SET cpf = ?, telefone = ?, nome = ?, endereco = ?, cargo = ?, rg = ?, cnh = ?, email = ?, senha = ?
             WHERE idFUNCIONARIO = ?
         `;
@@ -29,7 +29,7 @@ export async function atualizaEFunci(id, campos) {
         const colunas = Object.keys(campos).map(campo => `${campo} = ?`).join(", ");
         const valores = Object.values(campos);
 
-        const query = `UPDATE funcionario SET ${colunas} WHERE idFuncionario = ?`;
+        const query = `UPDATE FUNCIONARIO SET ${colunas} WHERE idFuncionario = ?`;
         valores.push(id);
         const [resposta] = await conexao.execute(query, valores);
         console.log(resposta);
