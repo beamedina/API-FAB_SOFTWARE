@@ -354,19 +354,25 @@ app.patch('/funcionarios/:id', async (req, res) => {
         res.status(400).send('Nenhum campo válido foi enviado para atualização');
     } else {
         try {
+            console.log("Atualizando funcionário:", id);
+            console.log("Campos para atualizar:", camposAtualizar);
+
             const resultado = await atualizaEFunci(id, camposAtualizar);
+
+            console.log("Resultado do update:", resultado);
 
             if (resultado.affectedRows > 0) {
                 res.status(202).send('Registro atualizado com sucesso!');
             } else {
                 res.status(404).send('Registro não encontrado!');
             }
-        } catch (erro) {
-            console.error("Erro ao atualizar funcionário na rota:", erro);
+        } catch (error) {
+            console.error("Erro ao atualizar funcionário na rota:", error);
             res.status(500).send("Erro interno ao atualizar o funcionário.");
         }
     }
 });
+
 
 
 app.patch('/aparelhos/:id', async (req, res) => {
