@@ -246,20 +246,34 @@ app.put('/clientes/:id', async (req, res) => {
 });
 
 app.put('/funcionarios/:id', async (req, res) => {
-    const { id } = req.params; 
-    const { cpf, telefone, nome, endereco, cargo, rg, cnh, email } = req.body;
+    try {
+        const { id } = req.params;
+        const { cpf, telefone, nome, endereco, cargo, rg, cnh, email } = req.body;
 
-    if (cpf == undefined || telefone == undefined || nome == undefined || endereco == undefined || cargo == undefined || rg == undefined || cnh == undefined || email == undefined) {
-        res.status(400).send('Todos os campos devem ser informados!')
-    } else {
-        const resultado = await atualizaFunci(id,cpf, telefone, nome, endereco, cargo, rg, cnh, email);
+        if (
+            cpf == undefined || telefone == undefined || nome == undefined ||
+            endereco == undefined || cargo == undefined || rg == undefined ||
+            cnh == undefined || email == undefined
+        ) {
+            return res.status(400).send('Todos os campos devem ser informados!');
+        }
+
+        const resultado = await atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email);
+
         if (resultado.affectedRows > 0) {
-            res.status(202).send('Registro atualizado com sucesso!')
+            res.status(202).send('Registro atualizado com sucesso!');
         } else {
             res.status(404).send('Registro não encontrado!');
         }
+    } catch (error) {
+        console.error("Erro ao atualizar funcionário:", error.message);
+        res.status(500).json({
+            erro: "Erro interno ao atualizar funcionário",
+            detalhe: error.message
+        });
     }
 });
+
 
 
 app.put('/aparelhos/:id', async (req, res) => {

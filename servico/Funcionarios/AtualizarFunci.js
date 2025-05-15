@@ -1,7 +1,5 @@
 import pool from "../conexao.js";
-export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email) {
-   
-   
+export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email) { 
    try{
     const conexao = await pool.getConnection();
     const query = 'UPDATE funcionario SET cpf = ?, telefone = ?, nome = ?, endereco = ?, cargo = ?, rg = ?, cnh =?, email = ? WHERE idFuncionario = ?';
