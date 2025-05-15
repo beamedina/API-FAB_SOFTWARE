@@ -268,7 +268,7 @@ app.put('/funcionarios/:id', async (req, res) => {
     } catch (error) {
         console.error("Erro ao atualizar funcionário:", error.message);
         res.status(500).json({
-            erro: "Erro interno ao atualizar funcionário",
+            erro: "Erro interno ao atualizaar funcionário",
             detalhe: error.message
         });
     }
