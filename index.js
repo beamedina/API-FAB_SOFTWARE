@@ -253,12 +253,12 @@ app.put('/funcionarios/:id', async (req, res) => {
         if (
             cpf == undefined || telefone == undefined || nome == undefined ||
             endereco == undefined || cargo == undefined || rg == undefined ||
-            cnh == undefined || email == undefined || senha == undefined
+            cnh == undefined || email == undefined 
         ) {
             return res.status(400).send('Todos os campos devem ser informados!');
         }
 
-        const resultado = await atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email);
+        const resultado = await atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha);
 
         if (resultado.affectedRows > 0) {
             res.status(202).send('Registro atualizado com sucesso!');
