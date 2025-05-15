@@ -1,3 +1,5 @@
+import pool from "../conexao.js";
+
 export async function cadastraFuncionario(cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha) {
     const conexao = await pool.getConnection();
 
