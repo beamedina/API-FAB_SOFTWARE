@@ -22,16 +22,22 @@ export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg
 }
 
 
-export async function atualizaEFunci(id, campos){
+export async function atualizaEFunci(id, campos) {
     const conexao = await pool.getConnection();
 
-    const colunas = Object.keys(campos).map(campo => `${campo} = ?`).join(", ");
-    const valores = Object.values(campos);
+    try {
+        const colunas = Object.keys(campos).map(campo => `${campo} = ?`).join(", ");
+        const valores = Object.values(campos);
 
-    const query = `UPDATE funcionario SET ${colunas} WHERE idFuncionario = ?`;
-    valores.push(id);
-    const [resposta] = await conexao.execute(query, valores);
-    console.log(resposta);
-    conexao.release();
-    return resposta;
+        const query = `UPDATE funcionario SET ${colunas} WHERE idFuncionario = ?`;
+        valores.push(id);
+        const [resposta] = await conexao.execute(query, valores);
+        console.log(resposta);
+        return resposta;
+    } catch (error) {
+        console.error("Erro ao atualizar funcionário:", error);
+        throw error;
+    } finally {
+        conexao.release();
+    }
 }

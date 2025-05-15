@@ -340,27 +340,32 @@ app.patch('/funcionarios/:id', async (req, res) => {
     const { id } = req.params;
     const { cpf, telefone, nome, endereco, cargo, rg, cnh, email } = req.body;
 
-const camposAtualizar = {};
-if (nome) camposAtualizar.nome = nome;
-if (endereco) camposAtualizar.endereco = endereco;
-if (telefone) camposAtualizar.telefone = telefone;
-if (cpf) camposAtualizar.cpf = cpf;
-if (cargo) camposAtualizar.cargo = cargo;
-if (rg) camposAtualizar.rg = rg;
-if (cnh) camposAtualizar.cnh = cnh;
-if (email) camposAtualizar.email = email;
+    const camposAtualizar = {};
+    if (nome) camposAtualizar.nome = nome;
+    if (endereco) camposAtualizar.endereco = endereco;
+    if (telefone) camposAtualizar.telefone = telefone;
+    if (cpf) camposAtualizar.cpf = cpf;
+    if (cargo) camposAtualizar.cargo = cargo;
+    if (rg) camposAtualizar.rg = rg;
+    if (cnh) camposAtualizar.cnh = cnh;
+    if (email) camposAtualizar.email = email;
 
-if (Object.keys(camposAtualizar).length === 0) {
-    res.status(400).send('Nenhum campo válido foi enviado para atualização');
-} else {
-    const resultado = await atualizaEFunci(id, camposAtualizar);
-
-    if (resultado.affectedRows > 0) {
-        res.status(202).send('Registro atualizado com sucesso!');
+    if (Object.keys(camposAtualizar).length === 0) {
+        res.status(400).send('Nenhum campo válido foi enviado para atualização');
     } else {
-        res.status(404).send('Registro não encontrado!');
+        try {
+            const resultado = await atualizaEFunci(id, camposAtualizar);
+
+            if (resultado.affectedRows > 0) {
+                res.status(202).send('Registro atualizado com sucesso!');
+            } else {
+                res.status(404).send('Registro não encontrado!');
+            }
+        } catch (erro) {
+            console.error("Erro ao atualizar funcionário na rota:", erro);
+            res.status(500).send("Erro interno ao atualizar o funcionário.");
+        }
     }
-}
 });
 
 
