@@ -1,9 +1,9 @@
 import pool from "../conexao.js";
-export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email) { 
+export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha) { 
    try{
     const conexao = await pool.getConnection();
-    const query = 'UPDATE funcionario SET cpf = ?, telefone = ?, nome = ?, endereco = ?, cargo = ?, rg = ?, cnh =?, email = ? WHERE idFuncionario = ?';
-    const [resposta] = await conexao.execute(query, [ cpf, telefone, nome, endereco, cargo, rg, cnh, email, id]);
+    const query = 'UPDATE funcionario SET cpf = ?, telefone = ?, nome = ?, endereco = ?, cargo = ?, rg = ?, cnh =?, email = ?, senha =? WHERE idFUNCIONARIO = ?';
+    const [resposta] = await conexao.execute(query, [ cpf, telefone, nome, endereco, cargo, rg, cnh, email,senha, id]);
     console.log(resposta);
     conexao.release();
     return resposta;
