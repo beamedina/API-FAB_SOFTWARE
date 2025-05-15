@@ -10,7 +10,7 @@ export async function atualizaFunci(id, cpf, telefone, nome, endereco, cargo, rg
     conexao.release();
     return resposta;
    } catch(error){
-        console.error("deu erro", error)
+        console.error("deu errado", error)
    }
 }
 
