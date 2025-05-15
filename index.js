@@ -1,6 +1,6 @@
 import express from 'express';
 import { cadastraCliente } from './servico/Cliente/CadastrarCliente.js'; // <-- Importação nomeada
-import { selectCliente } from './servico/Cliente/SelecionarCliente.js';
+import { selectCliente, selectTodosClientes } from './servico/Cliente/SelecionarCliente.js';
 import { DeletaCliente } from './servico/Cliente/deletarCliente.js';
 import { atualizaEspecifico } from './servico/Cliente/atualizaCliente.js';
 import { atualizaCliente } from './servico/Cliente/atualizaCliente.js';
@@ -90,6 +90,16 @@ app.get('/funcionarios', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ mensagem: "Erro ao buscar funcionários", error : error });
+    }
+});
+
+app.get('/clientes', async (req, res) => {
+    try {
+        const clientes = await selectTodosClientes();
+        res.json(clientes);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ mensagem: "Erro ao buscar clientes", error : error });
     }
 });
 

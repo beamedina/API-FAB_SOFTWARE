@@ -8,3 +8,17 @@ export async function selectCliente(nome) {
     conexao.release();
     return clientes;
 }
+
+
+export async function selectTodosClientes() {
+    try {
+        const conexao = await pool.getConnection();
+        const query = 'SELECT * FROM iffitness_db.CLIENTE';
+        const [clientes] = await conexao.query(query);
+        conexao.release();
+        return clientes;
+    } catch (error) {
+        console.error("Erro na função select todos clientes:", error);  
+        throw error;
+    }
+}
