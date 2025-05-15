@@ -38,12 +38,21 @@ app.post('/clientes', async (req, res) => {
 });
 
 app.post('/funcionarios', async (req, res) => {
-    console.log(req.body);
-    const { cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha} = req.body;
+    try {
+        console.log(req.body);
+        const { cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha } = req.body;
 
-    await cadastraFuncionario( cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha); 
-    res.status(204).end();
+        await cadastraFuncionario(cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha);
+        res.status(204).end();
+    } catch (error) {
+        console.error("Erro na rota /funcionarios:", error.message);
+        res.status(500).json({
+            erro: "Erro interno ao cadastrar funcionário",
+            detalhe: error.message
+        });
+    }
 });
+
 
 app.post('/aparelhos', async (req, res) => {
     const { nome, local, quantidade} = req.body;
