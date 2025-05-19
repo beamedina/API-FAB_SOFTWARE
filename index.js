@@ -31,7 +31,8 @@ app.post('/clientes', async (req, res) => {
         const { nome, endereco, telefone, cpf, plano } = req.body;
     
         await cadastraCliente(nome, endereco, telefone, cpf, plano); // Chama a função importada
-        res.status(204).end();
+        res.status(204).json({mensagem: "Cliente foi cadastrado com sucesso"});
+        conso
     }catch (error){
         res.status(500).send(error)
     }
@@ -43,7 +44,7 @@ app.post('/funcionarios', async (req, res) => {
         const { cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha } = req.body;
 
         await cadastraFuncionario(cpf, telefone, nome, endereco, cargo, rg, cnh, email, senha);
-        res.status(204).end();
+        res.status(204).json({mensagem: "funcionario foi cadastrado com sucesso"});
     } catch (error) {
         console.error("Erro na rota /funcionarios:", error.message);
         res.status(500).json({
@@ -58,7 +59,7 @@ app.post('/aparelhos', async (req, res) => {
     const { nome, local, quantidade} = req.body;
 
     await cadastrarAparelho( nome, local, quantidade); 
-    res.status(204).end();
+    res.status(204).json({mensagem: "Aparelho cadastrado com sucesso"});
 });
 
 
@@ -66,7 +67,7 @@ app.post('/planos', async (req, res) => {
     const {  nome, descricao, preco} = req.body;
 
     await cadastrarPlano( nome, descricao, preco); 
-    res.status(204).end();
+    res.status(204).json({mensagem: "Plano cadastrado com sucesso"});
 });
 
 
