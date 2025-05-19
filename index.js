@@ -34,7 +34,7 @@ app.post('/clientes', async (req, res) => {
         res.status(201).json({mensagem: "Cliente foi cadastrado com sucesso"});
         conso
     }catch (error){
-        res.status(500).send(error)
+        res.status(500).send("erro ao cadastrar cliente", error)
     }
 });
 
@@ -56,18 +56,28 @@ app.post('/funcionarios', async (req, res) => {
 
 
 app.post('/aparelhos', async (req, res) => {
+    
+   try{
     const { nome, local, quantidade} = req.body;
-
     await cadastrarAparelho( nome, local, quantidade); 
     res.status(202).json({mensagem: "Aparelho cadastrado com sucesso"});
+   } catch(error){
+    res.status(500).send("erro ao cadastrar aparelho", error)
+   }
+    
 });
 
 
 app.post('/planos', async (req, res) => {
+   
+ try{ 
     const {  nome, descricao, preco} = req.body;
 
     await cadastrarPlano( nome, descricao, preco); 
     res.status(202).json({mensagem: "Plano cadastrado com sucesso"});
+ } catch(error){
+    res.status(500).send("erro ao cadastrar plano", error)
+ }
 });
 
 
@@ -234,7 +244,7 @@ app.put('/clientes/:id', async (req, res) => {
     const { id } = req.params; 
     const { nome, endereco, telefone, cpf, plano } = req.body;
 
-    if (nome == undefined || endereco == undefined || telefone == undefined, plano == undefined) {
+    if (nome == undefined || endereco == undefined || telefone == undefined || plano == undefined) {
         res.status(400).send('Todos os campos devem ser informados!')
     } else {
         const resultado = await atualizaCliente(id, nome, endereco, telefone, cpf, plano);
