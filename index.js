@@ -18,11 +18,20 @@ import { cadastrarPlano } from './servico/Plano/CadastrarPlano.js';
 import { deletarPlano } from './servico/Plano/deletarPlano.js';
 import { atualizaEPlano, atualizarPlano } from './servico/Plano/atualizarPlano.js';
 import { selectPlanos, selectTodosPlanos } from './servico/Plano/selectPlano.js';
+import cors from 'cors'
+
+
 
 
 
 
 const app = express();
+app.use(cors({
+    origin: 'http://127.0.0.1:3000', // origem que pode acessar
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }))
+
 
 app.use(express.json()); // Suporte para json no corpo (body) da requisição
 
